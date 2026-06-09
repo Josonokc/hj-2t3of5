@@ -296,8 +296,8 @@
   if(typeof FIREBASE_CONFIG==='undefined'||FIREBASE_CONFIG.apiKey==='REPLACE_ME') return;
   function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   function fmt(ts){var d=new Date(ts);return d.toLocaleDateString('en',{weekday:'short',month:'short',day:'numeric'})+' '+d.toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit',hour12:true});}
-  // Start of the current training week — most recent Monday 00:00 local.
-  function weekStart(){var d=new Date();d.setHours(0,0,0,0);var off=(d.getDay()+6)%7;d.setDate(d.getDate()-off);return d.getTime();}
+  // Start of the current training week — most recent Sunday 00:00 local.
+  function weekStart(){var d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-d.getDay());return d.getTime();}
   function lastSeen(){return parseInt(localStorage.getItem('rc_lastSeen')||localStorage.getItem('rc_lastDismissed')||'0');}
   try{
     if(!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
