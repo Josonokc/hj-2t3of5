@@ -66,21 +66,34 @@
     <footer>Add to Home Screen for an app-like view · works offline after first load</footer>
   </div>
   <script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
 <script>
 (function(){
-  var p=new URLSearchParams(window.location.search),m=p.get('msg');
-  if(m){try{var d=JSON.parse(decodeURIComponent(escape(atob(m)))),s=JSON.parse(localStorage.getItem('rc_msgs')||'[]');if(!s.some(function(x){return x.ts===d.ts;})){s.unshift(d);if(s.length>10)s=s.slice(0,10);localStorage.setItem('rc_msgs',JSON.stringify(s));}}catch(e){}history.replaceState(null,'',window.location.pathname);}
-  var msgs=JSON.parse(localStorage.getItem('rc_msgs')||'[]'),unread=msgs.filter(function(x){return !x.read;});
-  if(!unread.length)return;
-  var d=unread[0];
+  var myId=localStorage.getItem('rc_deviceId');
+  if(!myId){myId=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('rc_deviceId',myId);}
+  if(typeof FIREBASE_CONFIG==='undefined'||FIREBASE_CONFIG.apiKey==='REPLACE_ME') return;
+  try{
+    if(!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+    var lastDismissed=parseInt(localStorage.getItem('rc_lastDismissed')||'0');
+    firebase.database().ref('messages').limitToLast(10).once('value').then(function(snap){
+      if(!snap.exists()) return;
+      var latest=null;
+      snap.forEach(function(c){var m=c.val();if(m.ts>lastDismissed&&m.deviceId!==myId) latest=m;});
+      if(latest) showBanner(latest);
+    }).catch(function(){});
+  }catch(e){}
   function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-  function fmt(ts){var dt=new Date(ts);return dt.toLocaleDateString('en',{month:'short',day:'numeric'})+' '+dt.toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit',hour12:true});}
-  var b=document.createElement('div');
-  b.style.cssText='position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:9999;background:#1e222b;border-bottom:2px solid #ffb454;padding:10px 16px;display:flex;align-items:flex-start;gap:10px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:.88rem;color:#e6e8ec;box-shadow:0 2px 12px #0009;';
-  var from=d.from?'<b>'+esc(d.from)+':</b> ':'';
-  b.innerHTML='<span style="font-size:1.1rem;flex:none;line-height:1.4">📣</span><span style="flex:1">'+from+esc(d.text)+'<span style="color:#9aa3b2;font-size:.76rem;display:block;margin-top:2px">'+fmt(d.ts)+'</span></span><button style="background:none;border:1px solid #2a2f3a;color:#9aa3b2;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:.85rem;flex:none;font-family:inherit;line-height:1">✕</button>';
-  b.querySelector('button').onclick=function(){var all=JSON.parse(localStorage.getItem('rc_msgs')||'[]');all.forEach(function(x){x.read=true;});localStorage.setItem('rc_msgs',JSON.stringify(all));b.remove();};
-  document.body.prepend(b);
+  function fmt(ts){var d=new Date(ts);return d.toLocaleDateString('en',{month:'short',day:'numeric'})+' '+d.toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit',hour12:true});}
+  function showBanner(msg){
+    var b=document.createElement('div');
+    b.style.cssText='position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:9999;background:#1e222b;border-bottom:2px solid #ffb454;padding:10px 16px;display:flex;align-items:flex-start;gap:10px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:.88rem;color:#e6e8ec;box-shadow:0 2px 12px #0009;';
+    var from=msg.from?'<b>'+esc(msg.from)+':</b> ':'';
+    b.innerHTML='<span style="font-size:1.1rem;flex:none;line-height:1.4">📣</span><span style="flex:1">'+from+esc(msg.text)+'<span style="color:#9aa3b2;font-size:.76rem;display:block;margin-top:2px">'+fmt(msg.ts)+'</span></span><button style="background:none;border:1px solid #2a2f3a;color:#9aa3b2;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:.85rem;flex:none;font-family:inherit;line-height:1">✕</button>';
+    b.querySelector('button').onclick=function(){localStorage.setItem('rc_lastDismissed',String(msg.ts));b.remove();};
+    document.body.prepend(b);
+  }
 })();
 </script>
 </body>
