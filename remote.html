@@ -150,9 +150,15 @@
     sendBtn.textContent='Sending…';
     confirmEl.style.display='none';
 
-    var data={from:from,text:text,ts:Date.now(),deviceId:myId};
+    var data={from:from,text:text,ts:Date.now()};
+    var timeout=setTimeout(function(){
+      sendBtn.disabled=false;
+      sendBtn.textContent='Send →';
+      showErr('Timed out — check your Firebase database rules allow writes (set .write to true in the Rules tab).');
+    },10000);
     db.ref('messages').push(data)
       .then(function(){
+        clearTimeout(timeout);
         sendBtn.disabled=false;
         sendBtn.textContent='Send →';
         confirmEl.style.display='block';
@@ -166,9 +172,10 @@
         renderHistory();
       })
       .catch(function(err){
+        clearTimeout(timeout);
         sendBtn.disabled=false;
         sendBtn.textContent='Send →';
-        alert('Failed to send: '+err.message);
+        showErr('Failed to send: '+err.message);
       });
   });
 
