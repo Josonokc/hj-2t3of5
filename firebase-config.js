@@ -10,9 +10,9 @@
 var FIREBASE_CONFIG = {
   apiKey:            "AIzaSyCVhLj3cYZVTbh83YySIQMKEMMKHAJ0la0",
   authDomain:        "hj-training-program-hj2t3of5.firebaseapp.com",
-  databaseURL:       "https://hj-training-program-hj2t3of5-default-rtdb.firebaseio.com",
+  databaseURL:       "https://hj-training-program-hj2t3of5-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId:         "hj-training-program-hj2t3of5",
-  storageBucket:     "hj-training-program-hj2t3of5.appspot.com",
+  storageBucket:     "hj-training-program-hj2t3of5.firebasestorage.app",
   messagingSenderId: "446751103328",
   appId:             "1:446751103328:web:d34a55938304b4e6d7e605"
 };
