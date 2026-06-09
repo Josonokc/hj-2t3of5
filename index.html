@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Training">
+<meta name="theme-color" content="#0f1115">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Hybrid Training Plan</title>
+<style>
+  :root{--bg:#0f1115;--surface:#171a21;--surface2:#1e222b;--line:#2a2f3a;--text:#e6e8ec;--muted:#9aa3b2;--accent:#16c79a;--accent2:#3da9fc;--radius:16px}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:680px;margin:0 auto;padding:0 calc(18px + env(safe-area-inset-left,0px)) calc(40px + env(safe-area-inset-bottom,0px))}
+  header{padding:calc(40px + env(safe-area-inset-top,0px)) 0 18px;text-align:center}
+  h1{font-size:1.5rem;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:.9rem;margin:0}
+  a.card{display:flex;align-items:center;gap:16px;text-decoration:none;color:var(--text);
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px;margin:14px 0;transition:border-color .15s,transform .05s}
+  a.card:active{transform:scale(.99)}
+  a.card.program:hover{border-color:#16c79a88}
+  a.card.meals:hover{border-color:#3da9fc88}
+  .ico{width:54px;height:54px;border-radius:13px;flex:none}
+  .ct h2{margin:0 0 3px;font-size:1.12rem}
+  .ct p{margin:0;color:var(--muted);font-size:.85rem}
+  .arrow{margin-left:auto;color:var(--muted);font-size:1.3rem}
+  .badges{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:12px}
+  .badge{background:var(--surface2);border:1px solid var(--line);padding:5px 10px;border-radius:999px;font-size:.74rem;font-weight:600}
+  .badge b{color:var(--accent)}
+  footer{color:var(--muted);font-size:.76rem;text-align:center;margin-top:22px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Hybrid Training Plan</h1>
+      <p class="sub">Hyrox · Marathon · 30 km — base phase</p>
+      <div class="badges">
+        <span class="badge">🏋️ <b>Hyrox</b> 29 Nov</span>
+        <span class="badge">🏃 <b>Marathon</b> 6 Dec</span>
+        <span class="badge">🎂 <b>30 km</b> late Dec</span>
+      </div>
+    </header>
+
+    <a class="card program" href="program.html">
+      <img class="ico" src="icon-180.png" alt="">
+      <div class="ct"><h2>Training Program</h2><p>Roadmap, weekly split, lifts, runs &amp; Hyrox</p></div>
+      <span class="arrow">›</span>
+    </a>
+
+    <a class="card meals" href="meals.html">
+      <img class="ico" src="icon-meals-180.png" alt="">
+      <div class="ct"><h2>Meal Plan</h2><p>Macros, meal options &amp; run-day fueling</p></div>
+      <span class="arrow">›</span>
+    </a>
+
+    <footer>Add to Home Screen for an app-like view · works offline after first load</footer>
+  </div>
+  <script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
+</body>
+</html>

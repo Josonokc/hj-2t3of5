@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Meal Plan">
+<meta name="theme-color" content="#0f1115">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<title>Phase 1 Meal Plan — 2,750 kcal · 150P/370C/76F</title>
+<style>
+  :root{
+    --bg:#0f1115; --surface:#171a21; --surface2:#1e222b; --line:#2a2f3a;
+    --text:#e6e8ec; --muted:#9aa3b2; --accent:#16c79a; --accent2:#3da9fc;
+    --warn:#ffb454; --danger:#ff6b6b; --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; -webkit-font-smoothing:antialiased;}
+  a{color:var(--accent2); text-decoration:none}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 16px}
+
+  header.hero{background:linear-gradient(135deg,#16c79a22,#3da9fc22),var(--surface);
+    border-bottom:1px solid var(--line); padding:30px 0 26px;}
+  .hero h1{margin:0 0 6px; font-size:1.55rem; letter-spacing:.2px}
+  .hero .sub{color:var(--muted); font-size:.95rem; margin:0 0 14px}
+  .badges{display:flex; flex-wrap:wrap; gap:8px}
+  .badge{background:var(--surface2); border:1px solid var(--line); color:var(--text);
+    padding:6px 11px; border-radius:999px; font-size:.8rem; font-weight:600;}
+  .badge b{color:var(--accent)}
+  .watch{margin-top:14px; background:#3da9fc12; border:1px solid #3da9fc55;
+    border-radius:10px; padding:10px 13px; font-size:.88rem; color:#bfe1ff;}
+
+  .layout{display:grid; grid-template-columns:230px 1fr; gap:28px; padding:26px 0 60px}
+  nav.toc{position:sticky; top:14px; align-self:start; max-height:calc(100vh - 28px); overflow:auto}
+  nav.toc .toc-title{font-size:.72rem; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin:6px 8px 8px}
+  nav.toc a{display:block; padding:7px 10px; border-radius:8px; color:var(--muted);
+    font-size:.86rem; font-weight:500; border-left:2px solid transparent;}
+  nav.toc a:hover{background:var(--surface); color:var(--text)}
+  nav.toc a.active{background:var(--surface2); color:var(--text); border-left-color:var(--accent)}
+
+  main{min-width:0}
+  section{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:20px 22px; margin:0 0 18px; scroll-margin-top:14px;}
+  section h2{margin:0 0 12px; font-size:1.18rem; display:flex; align-items:center; gap:9px}
+  section h2 .dot{width:9px; height:9px; border-radius:50%; background:var(--accent); flex:none}
+  p{margin:0 0 10px}
+  .muted{color:var(--muted)} .small{font-size:.86rem}
+  ul{margin:0 0 10px; padding-left:20px} li{margin:4px 0}
+  .note{color:var(--muted); font-size:.85rem; font-style:italic}
+
+  .tablescroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 0 6px}
+  table{border-collapse:collapse; width:100%; font-size:.88rem; min-width:460px}
+  th,td{text-align:left; padding:9px 11px; border-bottom:1px solid var(--line); vertical-align:top}
+  th{color:var(--muted); font-size:.74rem; text-transform:uppercase; letter-spacing:.6px; font-weight:700}
+  tbody tr:hover{background:var(--surface2)}
+  td b{color:var(--text)}
+  /* macro number columns */
+  td.n, th.n{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+  .kcal{color:var(--accent); font-weight:700}
+  tr.total td{border-top:2px solid var(--accent); border-bottom:none; font-weight:700; background:#16c79a10}
+  tr.total td.kcal{font-size:1rem}
+
+  .callout{border-left:3px solid var(--accent); background:var(--surface2); padding:10px 14px; border-radius:0 10px 10px 0; margin:10px 0; font-size:.9rem}
+  .callout.warn{border-color:var(--warn)}
+  .legend{display:flex; flex-wrap:wrap; gap:14px; font-size:.78rem; color:var(--muted); margin:2px 0 10px}
+  .legend b{color:var(--text)}
+
+  footer{color:var(--muted); font-size:.8rem; text-align:center; padding:24px 0 50px}
+
+  .navtoggle{display:none}
+  @media (max-width:820px){
+    .layout{grid-template-columns:1fr; gap:0; padding-top:14px}
+    nav.toc{position:static; max-height:none; margin-bottom:16px;
+      background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:10px;}
+    nav.toc .links{display:none}
+    nav.toc.open .links{display:block}
+    .navtoggle{display:flex; justify-content:space-between; align-items:center; width:100%; background:none; border:0; color:var(--text); font-size:.95rem; font-weight:700; padding:4px 6px; cursor:pointer}
+    .navtoggle span.arrow{transition:transform .2s}
+    nav.toc.open .navtoggle span.arrow{transform:rotate(180deg)}
+    .hero h1{font-size:1.3rem}
+  }
+  @media print{
+    :root{--bg:#fff;--surface:#fff;--surface2:#f5f5f5;--text:#111;--muted:#555;--line:#ccc}
+    nav.toc,.navtoggle{display:none}
+    .layout{grid-template-columns:1fr}
+    section{break-inside:avoid; border:1px solid #ddd}
+    body{background:#fff}
+  }
+
+  /* iOS standalone / safe-area (notch) handling for Add-to-Home-Screen */
+  @media (display-mode:standalone),(display-mode:fullscreen){
+    header.hero{padding-top:calc(30px + env(safe-area-inset-top,0px))}
+  }
+  .wrap{padding-left:calc(16px + env(safe-area-inset-left,0px));padding-right:calc(16px + env(safe-area-inset-right,0px))}
+  footer{padding-bottom:calc(50px + env(safe-area-inset-bottom,0px))}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Phase 1 Meal Plan — Base phase</h1>
+    <p class="sub">Built 8 Jun 2026 · slight lean-gain surplus · built around your real rotation (eat-out friendly)</p>
+    <div class="badges">
+      <span class="badge"><b>~2,750</b> kcal</span>
+      <span class="badge"><b>150 g</b> protein</span>
+      <span class="badge"><b>370 g</b> carbs</span>
+      <span class="badge"><b>76 g</b> fat</span>
+    </div>
+    <div class="watch">🔁 <b>Light carb-cycling:</b> training days ~2,750 (more carbs around runs/Hyrox) · rest days ~2,500 (trim a carb portion). All macros are estimates — <b>portion size is the main dial</b>.</div>
+  </div>
+</header>
+
+<div class="wrap">
+<div class="layout">
+
+  <nav class="toc" id="toc">
+    <button class="navtoggle" id="navtoggle">Jump to section <span class="arrow">▾</span></button>
+    <div class="links">
+      <div class="toc-title">Contents</div>
+      <a href="#how">How to use it</a>
+      <a href="#breakfast">Breakfast options</a>
+      <a href="#out">Lunch/Dinner — out</a>
+      <a href="#home">Lunch/Dinner — home</a>
+      <a href="#snacks">Snacks / add-ons</a>
+      <a href="#training">Sample training day</a>
+      <a href="#rest">Sample rest day</a>
+      <a href="#fuel">Run-day fueling</a>
+      <a href="#grocery">Grocery basics</a>
+    </div>
+  </nav>
+
+  <main>
+    <p class="legend">Columns: <b>kcal</b> · <b>P</b> protein g · <b>C</b> carbs g · <b>F</b> fat g</p>
+
+    <section id="how">
+      <h2><span class="dot"></span>How to use it</h2>
+      <ul>
+        <li>Pick one option per slot (breakfast, lunch, dinner, snack) + add-ons to top up.</li>
+        <li>Protein naturally runs high with your foods (chicken / eggs / yogurt / whey) — that's fine. <b>Carbs are the lever</b> you move around training.</li>
+        <li>Hit protein every meal; put the biggest carb servings around Thu quality + Sun long runs.</li>
+      </ul>
+    </section>
+
+    <section id="breakfast">
+      <h2><span class="dot"></span>Breakfast options</h2>
+      <div class="tablescroll"><table>
+        <thead><tr><th>Option</th><th class="n">kcal</th><th class="n">P</th><th class="n">C</th><th class="n">F</th></tr></thead>
+        <tbody>
+          <tr><td><b>Oats bowl</b> — 100 g oats + 1 scoop whey + banana</td><td class="n kcal">600</td><td class="n">38</td><td class="n">97</td><td class="n">10</td></tr>
+          <tr><td><b>Egg &amp; toast</b> — 3 eggs + 2 low-carb bread + 1 tbsp PB <span class="muted">(lower-carb, good rest day)</span></td><td class="n kcal">420</td><td class="n">30</td><td class="n">22</td><td class="n">24</td></tr>
+          <tr><td><b>Quick</b> — 2 low-carb bread + PB + Greek yogurt + berries</td><td class="n kcal">450</td><td class="n">25</td><td class="n">40</td><td class="n">16</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="out">
+      <h2><span class="dot"></span>Lunch / Dinner — eat out (SG)</h2>
+      <div class="tablescroll"><table>
+        <thead><tr><th>Option</th><th class="n">kcal</th><th class="n">P</th><th class="n">C</th><th class="n">F</th></tr></thead>
+        <tbody>
+          <tr><td>Hainanese chicken rice (steamed breast) + side veg</td><td class="n kcal">620</td><td class="n">33</td><td class="n">78</td><td class="n">18</td></tr>
+          <tr><td>Mixed veg rice (2 veg + 1 lean meat, easy on gravy)</td><td class="n kcal">600</td><td class="n">30</td><td class="n">70</td><td class="n">20</td></tr>
+          <tr><td>Salad bowl + <b>double protein</b> (SaladStop / Grain &amp; Co.)</td><td class="n kcal">550</td><td class="n">40</td><td class="n">45</td><td class="n">22</td></tr>
+          <tr><td>GYG chicken burrito bowl</td><td class="n kcal">700</td><td class="n">45</td><td class="n">65</td><td class="n">25</td></tr>
+          <tr><td>Suki-Ya double-egg gyudon</td><td class="n kcal">700</td><td class="n">32</td><td class="n">90</td><td class="n">20</td></tr>
+          <tr><td>Thai basil chicken rice + egg</td><td class="n kcal">720</td><td class="n">35</td><td class="n">80</td><td class="n">30</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="home">
+      <h2><span class="dot"></span>Lunch / Dinner — home</h2>
+      <div class="tablescroll"><table>
+        <thead><tr><th>Option</th><th class="n">kcal</th><th class="n">P</th><th class="n">C</th><th class="n">F</th></tr></thead>
+        <tbody>
+          <tr><td>Air-fried chicken breast (180 g) + 1.5 cups rice + broccoli + kimchi</td><td class="n kcal">660</td><td class="n">60</td><td class="n">78</td><td class="n">8</td></tr>
+          <tr><td><span class="muted">(lighter)</span> Chicken breast (180 g) + 1 cup rice + broccoli + kimchi</td><td class="n kcal">560</td><td class="n">58</td><td class="n">56</td><td class="n">8</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="snacks">
+      <h2><span class="dot"></span>Snacks / add-ons</h2>
+      <div class="tablescroll"><table>
+        <thead><tr><th>Option</th><th class="n">kcal</th><th class="n">P</th><th class="n">C</th><th class="n">F</th></tr></thead>
+        <tbody>
+          <tr><td><b>Greek yogurt bowl</b> (yogurt + manuka honey + Oob berries + Yava granola)</td><td class="n kcal">320</td><td class="n">20</td><td class="n">35</td><td class="n">8</td></tr>
+          <tr><td>Whey shake (1 scoop)</td><td class="n kcal">120</td><td class="n">24</td><td class="n">3</td><td class="n">2</td></tr>
+          <tr><td>Banana</td><td class="n kcal">105</td><td class="n">1</td><td class="n">27</td><td class="n">0</td></tr>
+          <tr><td>Apple / orange</td><td class="n kcal">90</td><td class="n">0</td><td class="n">23</td><td class="n">0</td></tr>
+          <tr><td>Almonds (20–25 g)</td><td class="n kcal">130</td><td class="n">5</td><td class="n">5</td><td class="n">12</td></tr>
+          <tr><td>Sports gel (run fuel)</td><td class="n kcal">100</td><td class="n">0</td><td class="n">25</td><td class="n">0</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="training">
+      <h2><span class="dot"></span>Sample TRAINING day <span class="muted small">(Thu quality / Sun long run)</span></h2>
+      <div class="tablescroll"><table>
+        <thead><tr><th>Meal</th><th>Choice</th><th class="n">kcal</th><th class="n">P</th><th class="n">C</th><th class="n">F</th></tr></thead>
+        <tbody>
+          <tr><td>Breakfast</td><td>Oats bowl</td><td class="n kcal">600</td><td class="n">38</td><td class="n">97</td><td class="n">10</td></tr>
+          <tr><td>Lunch</td><td>GYG chicken burrito bowl</td><td class="n kcal">700</td><td class="n">45</td><td class="n">65</td><td class="n">25</td></tr>
+          <tr><td>Pre/intra-run</td><td>Banana + 1 gel</td><td class="n kcal">205</td><td class="n">1</td><td class="n">52</td><td class="n">0</td></tr>
+          <tr><td>Dinner</td><td>Chicken rice (steamed) + veg + 1 boiled egg</td><td class="n kcal">690</td><td class="n">39</td><td class="n">78</td><td class="n">23</td></tr>
+          <tr><td>Snack</td><td>Greek yogurt bowl</td><td class="n kcal">320</td><td class="n">20</td><td class="n">35</td><td class="n">8</td></tr>
+          <tr><td>Add-on</td><td>Orange + 20 g almonds</td><td class="n kcal">205</td><td class="n">4</td><td class="n">27</td><td class="n">12</td></tr>
+          <tr class="total"><td colspan="2">TOTAL (~target)</td><td class="n kcal">2,720</td><td class="n">147</td><td class="n">354</td><td class="n">78</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="rest">
+      <h2><span class="dot"></span>Sample REST / easy day</h2>
+      <div class="tablescroll"><table>
+        <thead><tr><th>Meal</th><th>Choice</th><th class="n">kcal</th><th class="n">P</th><th class="n">C</th><th class="n">F</th></tr></thead>
+        <tbody>
+          <tr><td>Breakfast</td><td>Oats bowl</td><td class="n kcal">600</td><td class="n">38</td><td class="n">97</td><td class="n">10</td></tr>
+          <tr><td>Lunch</td><td>Mixed veg rice (2 veg + lean meat)</td><td class="n kcal">600</td><td class="n">30</td><td class="n">70</td><td class="n">20</td></tr>
+          <tr><td>Dinner</td><td>Salad bowl + double protein</td><td class="n kcal">550</td><td class="n">40</td><td class="n">45</td><td class="n">22</td></tr>
+          <tr><td>Snack</td><td>Greek yogurt bowl</td><td class="n kcal">320</td><td class="n">20</td><td class="n">35</td><td class="n">8</td></tr>
+          <tr><td>Add-ons</td><td>Whey shake + banana + orange</td><td class="n kcal">315</td><td class="n">25</td><td class="n">53</td><td class="n">2</td></tr>
+          <tr class="total"><td colspan="2">TOTAL</td><td class="n kcal">2,385</td><td class="n">153</td><td class="n">300</td><td class="n">62</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="fuel">
+      <h2><span class="dot"></span>Run-day fueling <span class="muted small">(key for the 30 km / marathon build)</span></h2>
+      <ul>
+        <li>Runs <b>&lt; 60 min:</b> no fuel needed — just hydrate.</li>
+        <li>Runs <b>&gt; 75–90 min:</b> practice <b>~30 g carb / 45 min</b> (1 gel, or banana + sports drink). Start early, not when empty — train the gut now.</li>
+        <li><b>After</b> hard/long sessions: protein + carbs within ~1–2 h (whey + fruit, or your next meal).</li>
+        <li>SG heat: add electrolytes on long runs (sodium especially); occasionally weigh before/after to gauge sweat loss.</li>
+      </ul>
+    </section>
+
+    <section id="grocery">
+      <h2><span class="dot"></span>Grocery basics <span class="muted small">(for the 1–2 home dinners/week)</span></h2>
+      <p>Chicken breast · rice · broccoli · kimchi · eggs · rolled oats · bananas + fruit · Greek yogurt · Oob frozen berries · Yava granola · manuka honey · peanut butter · low-carb bread · almonds · whey.</p>
+      <div class="callout">Supplements: whey as needed · <b>creatine 5 g daily</b>.</div>
+    </section>
+
+  </main>
+</div>
+</div>
+
+<footer class="wrap">
+  Personal training plan · personal-trainer toolkit ·
+  Estimates only — drops toward maintenance (~2,550) in Phase 2 (<code>/check-in</code> recalibrates) · not medical/dietitian advice.
+</footer>
+
+<script>
+  var toc=document.getElementById('toc'), tgl=document.getElementById('navtoggle');
+  tgl.addEventListener('click',function(){toc.classList.toggle('open')});
+  var links=Array.prototype.slice.call(document.querySelectorAll('nav.toc .links a'));
+  // Smooth-scroll on click (JS instead of native #hash — works inside sandboxed
+  // preview iframes where fragment navigation is blocked)
+  links.forEach(function(a){
+    a.addEventListener('click',function(e){
+      var target=document.getElementById(a.getAttribute('href').slice(1));
+      if(target){
+        e.preventDefault();
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+        links.forEach(function(l){l.classList.remove('active')});
+        a.classList.add('active');
+      }
+      if(window.innerWidth<=820) toc.classList.remove('open');
+    });
+  });
+  var map={}; links.forEach(function(a){ map[a.getAttribute('href').slice(1)]=a; });
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(l){l.classList.remove('active')});
+        var act=map[e.target.id]; if(act) act.classList.add('active');
+      }
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  document.querySelectorAll('main section').forEach(function(s){obs.observe(s)});
+</script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
+</body>
+</html>
