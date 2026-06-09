@@ -367,8 +367,6 @@
 <script src="firebase-config.js"></script>
 <script>
 (function(){
-  var myId=localStorage.getItem('rc_deviceId');
-  if(!myId){myId=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('rc_deviceId',myId);}
   if(typeof FIREBASE_CONFIG==='undefined'||FIREBASE_CONFIG.apiKey==='REPLACE_ME') return;
   try{
     if(!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
@@ -376,7 +374,7 @@
     firebase.database().ref('messages').limitToLast(10).once('value').then(function(snap){
       if(!snap.exists()) return;
       var latest=null;
-      snap.forEach(function(c){var m=c.val();if(m.ts>lastDismissed&&m.deviceId!==myId) latest=m;});
+      snap.forEach(function(c){var m=c.val();if(m.ts>lastDismissed) latest=m;});
       if(latest) showBanner(latest);
     }).catch(function(){});
   }catch(e){}
