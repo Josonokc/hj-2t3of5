@@ -8,11 +8,11 @@
 // 5. Bump sw.js CACHE string (e.g. add -b) so devices fetch this fresh file
 // ─────────────────────────────────────────────────────────────────────────────
 var FIREBASE_CONFIG = {
-  apiKey:            "REPLACE_ME",
-  authDomain:        "REPLACE_ME.firebaseapp.com",
-  databaseURL:       "https://REPLACE_ME-default-rtdb.firebaseio.com",
-  projectId:         "REPLACE_ME",
-  storageBucket:     "REPLACE_ME.appspot.com",
-  messagingSenderId: "REPLACE_ME",
-  appId:             "REPLACE_ME"
+  apiKey:            "AIzaSyCVhLj3cYZVTbh83YySIQMKEMMKHAJ0la0",
+  authDomain:        "hj-training-program-hj2t3of5.firebaseapp.com",
+  databaseURL:       "https://hj-training-program-hj2t3of5-default-rtdb.firebaseio.com",
+  projectId:         "hj-training-program-hj2t3of5",
+  storageBucket:     "hj-training-program-hj2t3of5.appspot.com",
+  messagingSenderId: "446751103328",
+  appId:             "1:446751103328:web:d34a55938304b4e6d7e605"
 };
