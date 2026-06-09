@@ -368,25 +368,55 @@
 <script>
 (function(){
   if(typeof FIREBASE_CONFIG==='undefined'||FIREBASE_CONFIG.apiKey==='REPLACE_ME') return;
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function fmt(ts){var d=new Date(ts);return d.toLocaleDateString('en',{weekday:'short',month:'short',day:'numeric'})+' '+d.toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit',hour12:true});}
+  // Start of the current training week — most recent Monday 00:00 local.
+  function weekStart(){var d=new Date();d.setHours(0,0,0,0);var off=(d.getDay()+6)%7;d.setDate(d.getDate()-off);return d.getTime();}
+  function lastSeen(){return parseInt(localStorage.getItem('rc_lastSeen')||localStorage.getItem('rc_lastDismissed')||'0');}
   try{
     if(!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
-    var lastDismissed=parseInt(localStorage.getItem('rc_lastDismissed')||'0');
-    firebase.database().ref('messages').limitToLast(10).once('value').then(function(snap){
+    firebase.database().ref('messages').limitToLast(50).once('value').then(function(snap){
       if(!snap.exists()) return;
-      var latest=null;
-      snap.forEach(function(c){var m=c.val();if(m.ts>lastDismissed) latest=m;});
-      if(latest) showBanner(latest);
+      var ws=weekStart(),msgs=[];
+      snap.forEach(function(c){var m=c.val();if(m&&typeof m.ts==='number'&&m.ts>=ws) msgs.push(m);});
+      if(!msgs.length) return;
+      msgs.sort(function(a,b){return b.ts-a.ts;}); // newest first
+      showPanel(msgs);
     }).catch(function(){});
   }catch(e){}
-  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-  function fmt(ts){var d=new Date(ts);return d.toLocaleDateString('en',{month:'short',day:'numeric'})+' '+d.toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit',hour12:true});}
-  function showBanner(msg){
-    var b=document.createElement('div');
-    b.style.cssText='position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:9999;background:#1e222b;border-bottom:2px solid #ffb454;padding:10px 16px;display:flex;align-items:flex-start;gap:10px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:.88rem;color:#e6e8ec;box-shadow:0 2px 12px #0009;';
-    var from=msg.from?'<b>'+esc(msg.from)+':</b> ':'';
-    b.innerHTML='<span style="font-size:1.1rem;flex:none;line-height:1.4">📣</span><span style="flex:1">'+from+esc(msg.text)+'<span style="color:#9aa3b2;font-size:.76rem;display:block;margin-top:2px">'+fmt(msg.ts)+'</span></span><button style="background:none;border:1px solid #2a2f3a;color:#9aa3b2;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:.85rem;flex:none;font-family:inherit;line-height:1">✕</button>';
-    b.querySelector('button').onclick=function(){localStorage.setItem('rc_lastDismissed',String(msg.ts));b.remove();};
-    document.body.prepend(b);
+  function showPanel(msgs){
+    var seen=lastSeen(),newest=msgs[0].ts;
+    var newCount=msgs.filter(function(m){return m.ts>seen;}).length;
+    var panel=document.createElement('div');
+    panel.style.cssText='position:fixed;top:0;left:0;right:0;z-index:9999;background:#1e222b;border-bottom:2px solid #ffb454;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#e6e8ec;box-shadow:0 2px 12px #0009;padding-top:env(safe-area-inset-top,0px);';
+    var head=document.createElement('div');
+    head.style.cssText='display:flex;align-items:center;gap:8px;padding:10px 16px;cursor:pointer;';
+    var title=newCount?(newCount+' new'+(msgs.length>newCount?' · '+msgs.length+' this week':'')):(msgs.length+' update'+(msgs.length>1?'s':'')+' this week');
+    head.innerHTML='<span style="font-size:1.1rem;flex:none">📣</span><span style="flex:1;font-weight:700;font-size:.9rem">'+title+'</span><span class="rc-caret" style="color:#9aa3b2;font-size:.9rem;flex:none">▾</span><button class="rc-close" style="background:none;border:1px solid #2a2f3a;color:#9aa3b2;border-radius:6px;padding:4px 9px;cursor:pointer;font-size:.85rem;flex:none;font-family:inherit;line-height:1">✕</button>';
+    panel.appendChild(head);
+    var list=document.createElement('div');
+    list.style.cssText='max-height:46vh;overflow-y:auto;padding:0 16px 10px;';
+    msgs.forEach(function(m){
+      var isNew=m.ts>seen;
+      var item=document.createElement('div');
+      item.style.cssText='padding:9px 0;border-top:1px solid #2a2f3a;'+(isNew?'border-left:3px solid #16c79a;padding-left:9px;margin-left:-9px;':'');
+      var from=m.from?'<b style="color:#3da9fc">'+esc(m.from)+':</b> ':'';
+      var tag=isNew?'<span style="background:#16c79a;color:#0a0d13;font-size:.62rem;font-weight:700;border-radius:4px;padding:1px 5px;margin-left:6px;vertical-align:middle">NEW</span>':'';
+      item.innerHTML='<div style="font-size:.88rem">'+from+esc(m.text)+'</div><div style="color:#9aa3b2;font-size:.74rem;margin-top:3px">'+fmt(m.ts)+tag+'</div>';
+      list.appendChild(item);
+    });
+    panel.appendChild(list);
+    function markSeen(){localStorage.setItem('rc_lastSeen',String(newest));}
+    var collapsed=newCount===0;
+    function apply(){list.style.display=collapsed?'none':'block';head.querySelector('.rc-caret').textContent=collapsed?'▸':'▾';}
+    apply();
+    if(!collapsed) markSeen();
+    head.addEventListener('click',function(e){
+      if(e.target.closest('.rc-close')) return;
+      collapsed=!collapsed;apply();if(!collapsed) markSeen();
+    });
+    head.querySelector('.rc-close').addEventListener('click',function(e){e.stopPropagation();markSeen();panel.remove();});
+    document.body.prepend(panel);
   }
 })();
 </script>
