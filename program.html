@@ -94,6 +94,7 @@
   .ex .name{font-weight:600}
   .ex .sets{color:var(--accent); font-weight:700; font-size:.86rem; white-space:nowrap}
   .ex .row{display:flex; justify-content:space-between; gap:12px; align-items:baseline}
+  .ex .load{display:inline-block; margin-top:6px; background:#3da9fc14; color:#9ad0ff; border:1px solid #3da9fc33; border-radius:7px; padding:2px 8px; font-size:.76rem; font-weight:600}
   .pill{display:inline-block; background:#3da9fc1f; color:#9ad0ff; border:1px solid #3da9fc44; border-radius:999px; padding:2px 9px; font-size:.72rem; font-weight:700; margin-bottom:8px}
   .pill.push{background:#16c79a1f;color:#8ff0d6;border-color:#16c79a44}
   .pill.pull{background:#b794f61f;color:#d6c2ff;border-color:#b794f644}
@@ -101,6 +102,13 @@
   .callout{border-left:3px solid var(--accent); background:var(--surface2); padding:10px 14px; border-radius:0 10px 10px 0; margin:10px 0; font-size:.9rem}
   .callout.warn{border-color:var(--warn)}
   .callout.danger{border-color:var(--danger)}
+
+  /* Status stat row */
+  .stats{display:flex; flex-wrap:wrap; gap:10px; margin:4px 0 12px}
+  .stat{background:var(--surface2); border:1px solid var(--line); border-radius:10px; padding:9px 13px; flex:1; min-width:120px}
+  .stat .k{font-size:.7rem; text-transform:uppercase; letter-spacing:.6px; color:var(--muted); font-weight:700}
+  .stat .v{font-size:1.15rem; font-weight:700; margin-top:2px}
+  .stat .v.warn{color:var(--warn)}
 
   footer{color:var(--muted); font-size:.8rem; text-align:center; padding:24px 0 50px}
 
@@ -141,7 +149,7 @@
 <header class="hero">
   <div class="wrap">
     <h1>Hybrid Roadmap → Hyrox · Marathon · 30 km</h1>
-    <p class="sub">Built 8 Jun 2026 · You + partner (same program) · intermediate lifter, ~1 yr running</p>
+    <p class="sub">Phase 1 base block · Updated 11 Jun 2026 (loads synced from intervals.icu + Hevy) · You + partner · intermediate lifter, ~1 yr running</p>
     <div class="badges">
       <span class="badge">🏋️ <b>Hyrox Doubles</b> · 29 Nov</span>
       <span class="badge">🏃 <b>Shanghai Marathon</b> · 6 Dec</span>
@@ -159,6 +167,7 @@
     <button class="navtoggle" id="navtoggle">Jump to section <span class="arrow">▾</span></button>
     <div class="links">
       <div class="toc-title">Contents</div>
+      <a href="#status">Where you are now</a>
       <a href="#events">Target events</a>
       <a href="#base">Base check</a>
       <a href="#roadmap">6-month roadmap</a>
@@ -175,6 +184,21 @@
   </nav>
 
   <main>
+
+    <section id="status">
+      <h2><span class="dot"></span>Where you are now <span class="muted" style="font-size:.8rem;font-weight:400">· synced 10 Jun</span></h2>
+      <div class="stats">
+        <div class="stat"><div class="k">Fitness (CTL)</div><div class="v">11.7</div></div>
+        <div class="stat"><div class="k">Fatigue (ATL)</div><div class="v">25.4</div></div>
+        <div class="stat"><div class="k">Form (TSB)</div><div class="v warn">−13.7</div></div>
+      </div>
+      <ul>
+        <li><b>Still carrying fatigue</b> on a low aerobic base. Last week stacked 3 lifts + Hyrox + 3 runs + swim, with <b>two</b> lower days → this block cuts to <b>1 lower + 2 upper</b>. Don't spike the long run while TSB is this negative.</li>
+        <li><b>Legs progressing strongly:</b> leg press <b>227×12</b> (PR), hip thrust 97×8, leg curl 64×10–12, leg ext 87.5×12.</li>
+        <li><b>Running speed is there:</b> 6.5 km @ <b>4:52/km</b> + track intervals. The gap is <b>long-run distance/consistency</b> (longest recent ~12 km) — that's what this block builds.</li>
+      </ul>
+      <div class="callout">First 1–2 weeks are a <b>settle-in</b> off the fatigue: if you feel run-down, drop the optional 3rd run before touching the long run.</div>
+    </section>
 
     <section id="events">
       <h2><span class="dot"></span>Target events</h2>
@@ -228,52 +252,54 @@
 
     <section id="lower">
       <h2><span class="dot"></span>Lower Body — Tuesday</h2>
-      <span class="pill">Back-friendly · RIR 2–3 · brace hard</span>
-      <p class="note">Warm-up: 90/90 hip switches, leg swings, glute bridges, bodyweight squats.</p>
-      <div class="ex"><div class="row"><span class="name">Hack squat <span class="muted">or</span> heel-elevated goblet/DB squat</span><span class="sets">3 × 8–12</span></div><div class="note">Spares the spine vs heavy barbell back squat; keep barbell squat only at controlled RIR 3.</div></div>
-      <div class="ex"><div class="row"><span class="name">Trap-bar deadlift <span class="muted">or</span> barbell hip thrust (controlled ROM)</span><span class="sets">3 × 8–10</span></div><div class="note">Trap bar = back-friendlier hinge.</div></div>
-      <div class="ex"><div class="row"><span class="name">Bulgarian split squat / walking lunge</span><span class="sets">3 × 10–12 /leg</span></div><div class="note">Hyrox: sandbag lunges.</div></div>
-      <div class="ex"><div class="row"><span class="name">Seated/lying leg curl</span><span class="sets">3 × 12–15</span></div></div>
-      <div class="ex"><div class="row"><span class="name">Leg extension</span><span class="sets">3 × 12–15</span></div></div>
-      <div class="ex"><div class="row"><span class="name">Standing calf raise</span><span class="sets">3 × 15</span></div></div>
+      <span class="pill">Back-friendly · RIR 2–3 · brace hard · rest 2–3 min</span>
+      <p class="note">Warm-up: 90/90 hip switches, leg swings, glute bridges, 1–2 ramp sets on the first movement.</p>
+      <div class="ex"><div class="row"><span class="name">Hack squat <span class="muted">or</span> heel-elevated goblet/DB squat</span><span class="sets">3 × 8–12</span></div><div class="load">Start ~132 kg hack · 25 kg goblet</div><div class="note">Spares the spine vs heavy back squat; keep barbell squat only at RIR 3 (≤70 kg).</div></div>
+      <div class="ex"><div class="row"><span class="name">Trap-bar deadlift <span class="muted">or</span> machine hip thrust</span><span class="sets">3 × 8–10</span></div><div class="load">Trap bar 110 kg · hip thrust 87→97 kg</div><div class="note">Trap bar = back-friendlier hinge. Controlled ROM on thrusts.</div></div>
+      <div class="ex"><div class="row"><span class="name">Bulgarian split squat / walking lunge</span><span class="sets">3 × 10–12 /leg</span></div><div class="load">DB 20–25 kg</div><div class="note">Hyrox: sandbag lunges.</div></div>
+      <div class="ex"><div class="row"><span class="name">Seated/lying leg curl</span><span class="sets">3 × 12–15</span></div><div class="load">59–64 kg · RIR 1–2</div></div>
+      <div class="ex"><div class="row"><span class="name">Leg extension</span><span class="sets">3 × 12–15</span></div><div class="load">82–87.5 kg</div></div>
+      <div class="ex"><div class="row"><span class="name">Standing/seated calf raise</span><span class="sets">3 × 15</span></div><div class="load">seated ~83 kg</div></div>
       <div class="ex"><div class="row"><span class="name">Core: dead bug + Pallof press</span><span class="sets">3 × 10 / 12</span></div><div class="note">Anti-extension — protects the back.</div></div>
     </section>
 
     <section id="uppera">
       <h2><span class="dot"></span>Upper A — Wednesday</h2>
-      <span class="pill push">Push + arms</span>
-      <div class="ex"><div class="row"><span class="name">Incline DB press</span><span class="sets">3 × 8–12</span></div></div>
-      <div class="ex"><div class="row"><span class="name">Standing overhead press</span><span class="sets">3 × 6–10</span></div><div class="note">Build your 35 kg OHP; carries to wall balls.</div></div>
-      <div class="ex"><div class="row"><span class="name">Machine chest press / weighted dip</span><span class="sets">3 × 8–12</span></div></div>
-      <div class="ex"><div class="row"><span class="name">DB lateral raise</span><span class="sets">3 × 12–20</span></div><div class="note">Delts — lagging area.</div></div>
-      <div class="ex"><div class="row"><span class="name">Triceps: rope pushdown + overhead extension</span><span class="sets">3 × 12–15</span></div></div>
-      <div class="callout">Then <b>Swim</b>: 20–30 min easy, continuous/recovery effort.</div>
+      <span class="pill push">Push + arms · RIR 1–2 · rest 90 s–2 min</span>
+      <div class="ex"><div class="row"><span class="name">Incline DB press</span><span class="sets">3 × 8–12</span></div><div class="load">45 kg (build toward 50)</div></div>
+      <div class="ex"><div class="row"><span class="name">Standing overhead press</span><span class="sets">3 × 6–10</span></div><div class="load">35 kg barbell · RIR 2</div><div class="note">Your lagging push lift — carries to wall balls.</div></div>
+      <div class="ex"><div class="row"><span class="name">Machine chest press / weighted dip</span><span class="sets">3 × 8–12</span></div><div class="load">incline machine 68 kg</div></div>
+      <div class="ex"><div class="row"><span class="name">DB / cable lateral raise</span><span class="sets">3 × 12–20</span></div><div class="load">DB 18 kg · cable 14 kg</div><div class="note">Delts — lagging. Slow eccentric, don't chase weight.</div></div>
+      <div class="ex"><div class="row"><span class="name">Triceps: rope pushdown</span><span class="sets">3 × 12–15</span></div><div class="load">41 kg</div></div>
+      <div class="ex"><div class="row"><span class="name">Triceps: overhead cable extension</span><span class="sets">3 × 12–15</span></div><div class="load">36 kg</div><div class="note">Arms — lagging.</div></div>
+      <div class="callout">Then <b>Swim</b>: 20–30 min easy, continuous/recovery effort. Keep HR low — recovery, not a session.</div>
     </section>
 
     <section id="upperb">
       <h2><span class="dot"></span>Upper B — Saturday</h2>
-      <span class="pill pull">Pull + arms</span>
-      <div class="ex"><div class="row"><span class="name">Pull-ups / lat pulldown</span><span class="sets">3 × 8–12</span></div></div>
-      <div class="ex"><div class="row"><span class="name">Chest-supported row</span><span class="sets">3 × 8–12</span></div><div class="note">Supported = back-friendly.</div></div>
-      <div class="ex"><div class="row"><span class="name">Cable row</span><span class="sets">3 × 10–12</span></div></div>
-      <div class="ex"><div class="row"><span class="name">Rear-delt fly</span><span class="sets">3 × 15</span></div></div>
-      <div class="ex"><div class="row"><span class="name">Biceps: DB curl + cable/hammer curl</span><span class="sets">3 × 10–15</span></div><div class="note">Arms — lagging area.</div></div>
-      <div class="ex"><div class="row"><span class="name">Farmer's carry</span><span class="sets">3 × 30–40 m</span></div><div class="note">Hyrox station + grip.</div></div>
+      <span class="pill pull">Pull + arms · RIR 1–2 · rest 90 s–2 min</span>
+      <div class="ex"><div class="row"><span class="name">Pull-ups (add load when easy) / lat pulldown</span><span class="sets">3 × 8–12</span></div><div class="load">BW×8–10 · +5–10 kg · pulldown 54–59 kg</div></div>
+      <div class="ex"><div class="row"><span class="name">Chest-supported / T-bar row</span><span class="sets">3 × 8–12</span></div><div class="load">T-bar 58 kg</div><div class="note">Supported = back-friendly.</div></div>
+      <div class="ex"><div class="row"><span class="name">Seated cable row (V-grip)</span><span class="sets">3 × 10–12</span></div><div class="load">54–60 kg</div></div>
+      <div class="ex"><div class="row"><span class="name">Rear-delt fly</span><span class="sets">3 × 15</span></div><div class="load">light · slow</div></div>
+      <div class="ex"><div class="row"><span class="name">Biceps: DB curl</span><span class="sets">3 × 10–12</span></div><div class="load">20 kg</div><div class="note">Arms — lagging.</div></div>
+      <div class="ex"><div class="row"><span class="name">Biceps: cable / hammer curl</span><span class="sets">3 × 12–15</span></div><div class="load">EZ 25 kg · preacher 32 kg</div></div>
+      <div class="ex"><div class="row"><span class="name">Farmer's carry</span><span class="sets">3 × 30–40 m</span></div><div class="load">2×24–32 kg</div><div class="note">Hyrox station + grip.</div></div>
     </section>
 
     <section id="running">
       <h2><span class="dot"></span>Running</h2>
-      <p class="note">Anchored to your paces: easy 7:00/km, threshold ~5:45–6:00/km.</p>
+      <p class="note">Anchored to your real paces: easy 7:00/km, threshold ~5:30–5:50/km (you held 4:52/km for 6.5 km).</p>
       <h3>Thursday — quality (alternate weekly)</h3>
       <ul>
-        <li><b>Tempo:</b> 2 km easy WU → 4–5 km @ ~6:20–6:35/km → 1 km easy CD</li>
-        <li><b>Intervals:</b> WU → 6–8 × 600–800 m @ ~5:45–6:00/km, jog 90 s recoveries → CD</li>
+        <li><b>Tempo:</b> 2 km easy WU → 4–5 km @ ~5:30–5:50/km → 1 km easy CD <span class="note">— sustainable threshold, not max.</span></li>
+        <li><b>Intervals:</b> WU → 6–8 × 600–800 m @ ~5:00–5:20/km, jog 90 s recoveries → CD</li>
       </ul>
       <h3>Sunday — long run (key driver)</h3>
       <ul>
         <li>Start <b>12 km</b> @ easy 7:00/km (Z2, conversational).</li>
         <li>Add ~1 km/week; every <b>4th week cut back ~30%</b> to recover.</li>
-        <li>End of Phase 1 ≈ <b>18–20 km</b>. Keep easy runs truly easy.</li>
+        <li>End of Phase 1 ≈ <b>18–20 km</b>. This fixes your weakest area — protect it, keep it easy.</li>
       </ul>
     </section>
 
@@ -282,7 +308,7 @@
       <ul>
         <li><b>Lifts:</b> hit the top of the rep range on all sets at the prescribed RIR → add load, reset to the bottom. Hold squats/hinges at RIR 2–3 to protect the back.</li>
         <li><b>Runs:</b> long run +~1 km/wk (with the 4th-week cutback); nudge tempo pace / interval count only when the prior week felt controlled.</li>
-        <li><b>Deload</b> ~week 6 (or sooner if the back flares): cut lift volume ~40%, shorten the long run.</li>
+        <li><b>Deload</b> ~week 6 (or sooner if the back flares <b>or TSB drops below ~−25</b>): cut lift volume ~40%, shorten the long run ~30%.</li>
       </ul>
     </section>
 
