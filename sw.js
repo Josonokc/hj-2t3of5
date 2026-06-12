@@ -1,13 +1,20 @@
 // Offline cache for the training plan PWA.
 // Bump CACHE when you republish updated pages so phones fetch the new version.
-const CACHE = 'trainer-2026-06-12b';
+const CACHE = 'trainer-2026-06-12c';
 const ASSETS = [
-  './', 'index.html', 'program.html', 'meals.html', 'nutrition.html', 'remote.html', 'firebase-config.js',
+  './', 'index.html', 'program.html', 'meals.html', 'nutrition.html', 'remote.html',
+  'update.js', 'firebase-config.js',
   'manifest.webmanifest', 'icon-180.png', 'icon-512.png', 'icon-meals-180.png', 'icon-meals-512.png'
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+  // Cache the new assets but do NOT auto-activate — wait so update.js can show the
+  // "Update available — Refresh" banner. The page messages 'skipWaiting' on tap.
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
+});
+
+self.addEventListener('message', e => {
+  if (e.data === 'skipWaiting') self.skipWaiting();
 });
 
 self.addEventListener('activate', e => {
