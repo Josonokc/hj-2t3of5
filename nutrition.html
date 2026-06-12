@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nutrition">
+<meta name="theme-color" content="#0f1115">
+<link rel="apple-touch-icon" href="icon-meals-180.png">
+<title>Nutrition Dashboard</title>
+<style>
+  :root{
+    --bg:#0f1115; --surface:#171a21; --surface2:#1e222b; --line:#2a2f3a;
+    --text:#e6e8ec; --muted:#9aa3b2; --accent:#16c79a; --accent2:#3da9fc;
+    --warn:#ffb454; --danger:#ff6b6b; --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; -webkit-font-smoothing:antialiased;}
+  a{color:var(--accent2); text-decoration:none}
+  .wrap{max-width:760px; margin:0 auto;
+    padding:0 calc(16px + env(safe-area-inset-left,0px)) calc(50px + env(safe-area-inset-bottom,0px))}
+
+  header.hero{background:linear-gradient(135deg,#16c79a22,#3da9fc22),var(--surface);
+    border-bottom:1px solid var(--line); padding:calc(34px + env(safe-area-inset-top,0px)) 0 22px; margin-bottom:18px;}
+  .hero .wrap{padding-bottom:0}
+  .hero h1{margin:0 0 5px; font-size:1.5rem; letter-spacing:.2px}
+  .hero .sub{color:var(--muted); font-size:.9rem; margin:0 0 12px}
+  .badges{display:flex; flex-wrap:wrap; gap:7px}
+  .badge{background:var(--surface2); border:1px solid var(--line); color:var(--text);
+    padding:5px 10px; border-radius:999px; font-size:.76rem; font-weight:600;}
+  .badge b{color:var(--accent)}
+  .back{display:inline-block; color:var(--muted); font-size:.85rem; margin-bottom:10px}
+
+  section{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:18px 18px; margin:0 0 16px;}
+  section h2{margin:0 0 4px; font-size:1.08rem; display:flex; align-items:center; gap:8px}
+  section h2 .dot{width:8px; height:8px; border-radius:50%; background:var(--accent); flex:none}
+  .seclead{color:var(--muted); font-size:.84rem; margin:0 0 14px}
+
+  /* stat cards */
+  .cards{display:grid; grid-template-columns:repeat(4,1fr); gap:9px}
+  @media(max-width:560px){.cards{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--surface2); border:1px solid var(--line); border-radius:11px; padding:11px 12px}
+  .stat .k{font-size:.7rem; text-transform:uppercase; letter-spacing:.6px; color:var(--muted); font-weight:700}
+  .stat .v{font-size:1.32rem; font-weight:800; font-variant-numeric:tabular-nums; margin:3px 0 1px}
+  .stat .g{font-size:.78rem; font-weight:700}
+  .ok{color:var(--accent)} .warn{color:var(--warn)} .danger{color:var(--danger)}
+  .bar-ok{fill:var(--accent)} .bar-warn{fill:var(--warn)} .bar-danger{fill:var(--danger)}
+
+  /* 7-day avg highlight */
+  .avgbox{border-left:3px solid var(--accent2); background:var(--surface2);
+    border-radius:0 11px 11px 0; padding:12px 14px; margin-top:2px}
+  .avgbox .row{display:flex; flex-wrap:wrap; gap:16px; align-items:baseline}
+  .avgbox .lab{font-size:.72rem; text-transform:uppercase; letter-spacing:.6px; color:var(--muted); font-weight:700}
+  .avgbox .item b{font-size:1.05rem; font-variant-numeric:tabular-nums}
+  .avgbox .item span{font-size:.78rem; font-weight:700; margin-left:4px}
+  .avgbox .verdict{font-size:.86rem; margin:9px 0 0; color:var(--text)}
+
+  .chart{margin:0 0 6px}
+  .chart h3{margin:14px 0 2px; font-size:.84rem; color:var(--muted); font-weight:700;
+    text-transform:uppercase; letter-spacing:.5px; display:flex; justify-content:space-between}
+  .chart h3 span{color:var(--text); text-transform:none; letter-spacing:0; font-weight:600}
+  svg{display:block; width:100%; height:auto}
+  .ax{fill:var(--muted); font-size:10px}
+  .axlbl{fill:var(--muted); font-size:9px}
+  .tgtline{stroke:var(--accent2); stroke-width:1.4; stroke-dasharray:5 4; opacity:.85}
+  .avgline{stroke:#fff; stroke-width:1; stroke-dasharray:2 3; opacity:.35}
+
+  .tablescroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse; width:100%; font-size:.85rem; min-width:380px}
+  th,td{text-align:right; padding:8px 9px; border-bottom:1px solid var(--line); white-space:nowrap; font-variant-numeric:tabular-nums}
+  th:first-child,td:first-child{text-align:left}
+  th{color:var(--muted); font-size:.7rem; text-transform:uppercase; letter-spacing:.5px; font-weight:700}
+  tbody tr:hover{background:var(--surface2)}
+  tr.avg td{border-top:2px solid var(--accent2); border-bottom:none; font-weight:800; background:#3da9fc10}
+
+  .legend{display:flex; flex-wrap:wrap; gap:14px; font-size:.76rem; color:var(--muted); margin:12px 0 0}
+  .legend b{color:var(--text)}
+  footer{color:var(--muted); font-size:.78rem; text-align:center; padding:18px 0 40px}
+  .note{color:var(--muted); font-size:.82rem; font-style:italic; margin-top:10px}
+</style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <a class="back" href="index.html">‹ Hub</a>
+      <h1>Nutrition Dashboard</h1>
+      <p class="sub" id="updated">Lean-gain phase</p>
+      <div class="badges" id="targetBadges"></div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <section>
+      <h2><span class="dot"></span>Latest day <span id="latestDate" class="seclead" style="margin:0 0 0 auto;font-weight:600"></span></h2>
+      <p class="seclead">Most recent logged day vs target. Estimates, not lab values.</p>
+      <div class="cards" id="latestCards"></div>
+    </section>
+
+    <section>
+      <h2><span class="dot" style="background:var(--accent2)"></span>7-day average</h2>
+      <p class="seclead">The number that actually drives body composition — judge the week, not any single day.</p>
+      <div class="avgbox">
+        <div class="row" id="avgRow"></div>
+        <p class="verdict" id="avgVerdict"></p>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="dot"></span>Trend <span class="seclead" style="margin:0 0 0 auto;font-weight:600">last <span id="trendCount"></span> days</span></h2>
+      <p class="seclead">Dashed blue line = target · faint white line = 7-day average · bar colour = on-track / off.</p>
+      <div id="charts"></div>
+    </section>
+
+    <section>
+      <h2><span class="dot"></span>Scoreboard</h2>
+      <div class="tablescroll"><table id="scoreboard"></table></div>
+      <div class="legend">
+        <span><b>kcal</b> gap to target (↓ under is the miss on a surplus)</span>
+        <span><b class="ok">✅</b>≥140 · <b class="warn">⚠️</b>120–139 · <b class="danger">❌</b>&lt;120 protein</span>
+        <span><b>↓✓↑</b> carbs/fat vs ±10% band</span>
+      </div>
+      <p class="note">All values are estimates maintained by <b>/track-macros</b>. This page recalculates everything in your phone from the logged days below.</p>
+    </section>
+
+    <footer>Auto-generated from the nutrition log · works offline after first load</footer>
+  </div>
+
+<script>
+/* ===== DATA (maintained by /track-macros — newest first) ===== */
+const TARGETS = { kcal:2750, p:150, c:370, f:76 };
+const DAYS = [
+  { d:"2026-06-11", wt:62, kcal:2185, p:146, c:218, f:84 },
+  { d:"2026-06-10", wt:62, kcal:1960, p:119, c:182, f:84 }
+];
+/* ===== END DATA ===== */
+
+/* ---------- status helpers (mirror the markdown scoreboard rules) ---------- */
+function proteinStat(v){ if(v>=140) return {cls:'ok',g:'✅'}; if(v>=120) return {cls:'warn',g:'⚠️'}; return {cls:'danger',g:'❌'}; }
+function bandStat(v,t){ const lo=t*0.9, hi=t*1.1; if(v<lo) return {cls:'warn',g:'↓'}; if(v>hi) return {cls:'warn',g:'↑'}; return {cls:'ok',g:'✓'}; }
+function kcalStat(v,t){ const gap=v-t, a=Math.abs(gap); if(a<=150) return {cls:'ok'}; if(gap<0) return {cls:a>500?'danger':'warn'}; return {cls:'warn'}; }
+function gapStr(v,t){ const g=Math.round(v-t); if(g===0) return '±0'; return (g<0?'↓':'↑')+Math.abs(g); }
+function statFor(key,v){ if(key==='kcal') return kcalStat(v,TARGETS.kcal); if(key==='p') return proteinStat(v); return bandStat(v, key==='c'?TARGETS.c:TARGETS.f); }
+function avgOf(key,n){ const s=DAYS.slice(0,n); if(!s.length) return 0; return Math.round(s.reduce((a,x)=>a+x[key],0)/s.length); }
+function fmtDate(s){ const [y,m,dd]=s.split('-').map(Number); return new Date(y,m-1,dd).toLocaleDateString('en',{weekday:'short',month:'short',day:'numeric'}); }
+function mdDate(s){ return s.slice(5); }
+
+const AVG_N = Math.min(7, DAYS.length);
+
+/* ---------- header ---------- */
+document.getElementById('targetBadges').innerHTML =
+  '<span class="badge">🎯 <b>'+TARGETS.kcal.toLocaleString()+'</b> kcal</span>'+
+  '<span class="badge"><b>'+TARGETS.p+'g</b> protein</span>'+
+  '<span class="badge"><b>'+TARGETS.c+'g</b> carbs</span>'+
+  '<span class="badge"><b>'+TARGETS.f+'g</b> fat</span>';
+if(DAYS.length) document.getElementById('updated').textContent = 'Lean-gain phase · updated '+fmtDate(DAYS[0].d);
+
+/* ---------- latest day cards ---------- */
+(function(){
+  const L=DAYS[0]; if(!L) return;
+  document.getElementById('latestDate').textContent = fmtDate(L.d);
+  const defs=[['kcal','kcal',L.kcal.toLocaleString(),gapStr(L.kcal,TARGETS.kcal)+' kcal'],
+              ['p','Protein',L.p+'g',gapStr(L.p,TARGETS.p)+'g'],
+              ['c','Carbs',L.c+'g',gapStr(L.c,TARGETS.c)+'g'],
+              ['f','Fat',L.f+'g',gapStr(L.f,TARGETS.f)+'g']];
+  document.getElementById('latestCards').innerHTML = defs.map(function(d){
+    const st=statFor(d[0],L[d[0]]);
+    const glyph=(d[0]==='p')?st.g+' ':''; // protein shows floor-status; others let the gap arrow speak
+    return '<div class="stat"><div class="k">'+d[1]+'</div><div class="v">'+d[2]+'</div>'+
+           '<div class="g '+st.cls+'">'+glyph+d[3]+'</div></div>';
+  }).join('');
+})();
+
+/* ---------- 7-day average ---------- */
+(function(){
+  const items=[['kcal','kcal'],['p','P'],['c','C'],['f','F']];
+  document.getElementById('avgRow').innerHTML =
+    '<div class="item"><div class="lab">'+AVG_N+'-day avg</div></div>'+
+    items.map(function(it){
+      const v=avgOf(it[0],AVG_N), st=statFor(it[0],v);
+      const suffix=it[0]==='kcal'?'':'g';
+      const glyph=(it[0]==='p')?st.g+' ':'';
+      return '<div class="item"><b>'+v.toLocaleString()+suffix+'</b><span class="'+st.cls+'">'+
+             glyph+gapStr(v,TARGETS[it[0]])+'</span></div>';
+    }).join('');
+  const ak=avgOf('kcal',AVG_N), ap=avgOf('p',AVG_N), gap=ak-TARGETS.kcal;
+  let v;
+  if(gap < -250) v='⚠️ Averaging '+Math.abs(gap)+' kcal under target — that\'s roughly maintenance, not a surplus. Carbs are the lever: avg '+avgOf('c',AVG_N)+'g vs '+TARGETS.c+'g goal.';
+  else if(gap > 250) v='Averaging '+gap+' kcal over — fine for a gain, watch the trend if fat creeps up.';
+  else v='On target for the week (avg within ±250 kcal). Protein averaging '+ap+'g.';
+  document.getElementById('avgVerdict').textContent=v;
+})();
+
+/* ---------- charts (hand-rolled SVG, oldest → newest) ---------- */
+function barChart(key, label, target, unit){
+  const series=DAYS.slice(0, Math.min(14,DAYS.length)).slice().reverse(); // oldest→newest
+  const W=700, H=190, padL=40, padR=10, padT=14, padB=26;
+  const plotW=W-padL-padR, plotH=H-padT-padB;
+  const maxV=Math.max(target, ...series.map(x=>x[key]))*1.15;
+  const y=v=>padT+plotH-(v/maxV)*plotH;
+  const n=series.length, slot=plotW/n, bw=Math.min(46, slot*0.6);
+  const avgV=avgOf(key,Math.min(7,DAYS.length));
+  let s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+label+' per day">';
+  // y gridlines (0, target, max)
+  [0,target].forEach(function(gv){ const yy=y(gv);
+    s+='<line x1="'+padL+'" y1="'+yy+'" x2="'+(W-padR)+'" y2="'+yy+'" stroke="#2a2f3a" stroke-width="1"/>';
+    s+='<text class="ax" x="'+(padL-5)+'" y="'+(yy+3)+'" text-anchor="end">'+Math.round(gv)+'</text>';
+  });
+  // target line emphasised
+  s+='<line class="tgtline" x1="'+padL+'" y1="'+y(target)+'" x2="'+(W-padR)+'" y2="'+y(target)+'"/>';
+  // bars
+  series.forEach(function(x,i){
+    const cx=padL+slot*i+slot/2, bx=cx-bw/2, by=y(x[key]), bh=padT+plotH-by;
+    const st=statFor(key,x[key]);
+    s+='<rect x="'+bx.toFixed(1)+'" y="'+by.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+Math.max(0,bh).toFixed(1)+'" rx="3" class="bar-'+st.cls+'"><title>'+mdDate(x.d)+': '+x[key]+unit+'</title></rect>';
+    s+='<text class="axlbl" x="'+cx.toFixed(1)+'" y="'+(H-9)+'" text-anchor="middle">'+mdDate(x.d)+'</text>';
+  });
+  // 7-day avg line
+  if(DAYS.length>=2){ const ay=y(avgV); s+='<line class="avgline" x1="'+padL+'" y1="'+ay+'" x2="'+(W-padR)+'" y2="'+ay+'"/>'; }
+  s+='</svg>';
+  return '<div class="chart"><h3>'+label+' <span>target '+target+unit+' · avg '+avgV+unit+'</span></h3>'+s+'</div>';
+}
+document.getElementById('trendCount').textContent = Math.min(14,DAYS.length);
+document.getElementById('charts').innerHTML =
+  barChart('kcal','Calories',TARGETS.kcal,'')+
+  barChart('p','Protein',TARGETS.p,'g')+
+  barChart('c','Carbs',TARGETS.c,'g')+
+  barChart('f','Fat',TARGETS.f,'g');
+
+/* ---------- scoreboard table ---------- */
+(function(){
+  let h='<thead><tr><th>Date</th><th>Wt</th><th>kcal</th><th>P</th><th>C</th><th>F</th></tr></thead><tbody>';
+  DAYS.slice(0,14).forEach(function(x){
+    const ks=kcalStat(x.kcal,TARGETS.kcal), ps=proteinStat(x.p), cs=bandStat(x.c,TARGETS.c), fs=bandStat(x.f,TARGETS.f);
+    h+='<tr><td>'+mdDate(x.d)+'</td><td>'+(x.wt||'')+'</td>'+
+       '<td class="'+ks.cls+'">'+x.kcal.toLocaleString()+' <small>'+gapStr(x.kcal,TARGETS.kcal)+'</small></td>'+
+       '<td class="'+ps.cls+'">'+x.p+' '+ps.g+'</td>'+
+       '<td class="'+cs.cls+'">'+x.c+' '+cs.g+'</td>'+
+       '<td class="'+fs.cls+'">'+x.f+' '+fs.g+'</td></tr>';
+  });
+  // avg row
+  const ak=avgOf('kcal',AVG_N), ap=avgOf('p',AVG_N), ac=avgOf('c',AVG_N), af=avgOf('f',AVG_N);
+  const ks=kcalStat(ak,TARGETS.kcal), ps=proteinStat(ap), cs=bandStat(ac,TARGETS.c), fs=bandStat(af,TARGETS.f);
+  h+='<tr class="avg"><td>'+AVG_N+'-day avg</td><td>'+(DAYS[0].wt||'')+'</td>'+
+     '<td class="'+ks.cls+'">'+ak.toLocaleString()+' <small>'+gapStr(ak,TARGETS.kcal)+'</small></td>'+
+     '<td class="'+ps.cls+'">'+ap+' '+ps.g+'</td>'+
+     '<td class="'+cs.cls+'">'+ac+' '+cs.g+'</td>'+
+     '<td class="'+fs.cls+'">'+af+' '+fs.g+'</td></tr>';
+  h+='</tbody>';
+  document.getElementById('scoreboard').innerHTML=h;
+})();
+</script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
+</body>
+</html>
